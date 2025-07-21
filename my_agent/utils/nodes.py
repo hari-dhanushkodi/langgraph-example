@@ -3,6 +3,10 @@ from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
 from my_agent.utils.tools import tools
 from langgraph.prebuilt import ToolNode
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 @lru_cache(maxsize=4)
@@ -33,6 +37,7 @@ system_prompt = """Be a helpful assistant"""
 
 # Define the function that calls the model
 def call_model(state, config):
+    logger.info("hi its hari")
     messages = state["messages"]
     messages = [{"role": "system", "content": system_prompt}] + messages
     model_name = config.get('configurable', {}).get("model_name", "anthropic")
